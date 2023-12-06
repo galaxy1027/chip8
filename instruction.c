@@ -39,12 +39,12 @@ void draw(Chip8* chip8) {
         uint8_t spriteByte = chip8->ram[chip8->i + row];
         for (int col = 0; col < 8; ++col) {
             uint8_t spritePixel = spriteByte & (0x80 >> col);
-            
+            uint8_t* screenPixel = &chip8->display[x][y];
             if (spritePixel) {
-                if (chip8->display[x][y] == 0xF) {
+                if (*screenPixel == 0xFF) {
                     chip8->v[0xF] = 1;
                 }
-                chip8->display[x][y] ^= 0xF;
+                chip8->display[x][y] ^= 0xFF;
             }
         }
     }

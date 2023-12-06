@@ -14,26 +14,27 @@ int main(int argc, char* argv[]) {
 
     const float fps = 60.0;
 
-    SetTargetFPS(60);
+    SetTargetFPS(fps);
     
     int scale = atoi(argv[1]);
     char* const filename = argv[2];
 
     InitWindow(64*scale, 32*scale, "Chip-8");
 
-    Chip8* chip8 = (Chip8*)malloc(sizeof(chip8));
-    init(chip8);
-    loadRom(chip8, argv[2]);
+    Chip8 chip8;
+    init(&chip8);
+    loadRom(&chip8, argv[2]);
     bool quit = false;
 
     while (!quit) {
-        fetch(chip8);
-        execute(chip8);
-        updateScreen(chip8, scale);
+        if (WindowShouldClose()) {
+            quit = true;
+        }
+        fetch(&chip8);
+        updateScreen(&chip8, scale);
     }
 
     CloseWindow();
-    free(chip8);
     return 0;
 }
 
@@ -73,13 +74,16 @@ void fetch(Chip8* chip8) {
     uint16_t op = ((chip8->ram[chip8->pc]) << 8) | chip8->ram[chip8->pc+1];
     chip8->pc += 2;
     chip8->opcode = op;
+    execute(chip8);
 }
 
 void execute(Chip8* chip8) {
-    uint8_t n4 = chip8->opcode & 0x000F;
-    uint8_t n3 = (chip8->opcode >> 4) & 0x000F;
-    uint8_t n2 = (chip8->opcode >> 8) & 0x000F;
-    uint8_t n1 = (chip8->opcode >> 12) & 0x000F;
+    uint16_t opcode = chip8->opcode;
+    printf("%x\n", opcode);
+    uint8_t n4 = opcode & 0x000F;
+    uint8_t n3 = (opcode >> 4) & 0x000F;
+    uint8_t n2 = (opcode >> 8) & 0x000F;
+    uint8_t n1 = (opcode >> 12) & 0x000F;
 
     switch(n1) {
         case 0x0:
@@ -119,7 +123,7 @@ void updateScreen(Chip8* chip8, int scale) {
     ClearBackground(BLACK);
     for (int x = 0; x < 64; ++x) {
         for (int y = 0; y < 32; ++y) {
-            if (chip8->display[x][y]) {
+            if (chip8->display[x][y] != 0) {
                 DrawRectangle(x*scale, y*scale, scale, scale, RAYWHITE);
             }
         }
