@@ -1,7 +1,7 @@
 #include "chip8.h"
 #include "instruction.h"
 
-void clearScreeen(Chip8* chip8) {
+void clearScreen(Chip8* chip8) {
     int screensize = 64 * 32;
     for (int i = 0; i < screensize; ++i) {
         chip8->display[i] = 0;
@@ -28,7 +28,7 @@ void setIndex(Chip8* chip8) {
 }
 
 // DXYN
-void display(Chip8* chip8) {
+void draw(Chip8* chip8) {
     uint8_t x = chip8->v[(chip8->opcode & 0x0F00) >> 8] % 64;
     uint8_t y = chip8->v[(chip8->opcode & 0x00F0) >> 4] % 32;
 
