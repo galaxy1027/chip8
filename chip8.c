@@ -123,7 +123,7 @@ void updateScreen(Chip8* chip8, int scale) {
     ClearBackground(BLACK);
     for (int x = 0; x < 64; ++x) {
         for (int y = 0; y < 32; ++y) {
-            if (chip8->display[x][y] != 0) {
+            if (chip8->display[x][y]) {
                 DrawRectangle(x*scale, y*scale, scale, scale, RAYWHITE);
             }
         }

@@ -30,21 +30,21 @@ void setIndex(Chip8* chip8) {
 
 // DXYN
 void draw(Chip8* chip8) {
-    uint8_t x = chip8->v[(chip8->opcode & 0x0F00) >> 8];
-    uint8_t y = chip8->v[(chip8->opcode & 0x00F0) >> 4];
-    uint8_t n = chip8->opcode & 0x000F;
     chip8->v[0xF] = 0;
+    uint8_t x = (chip8->opcode & 0x0F00) >> 8;
+    uint8_t y = (chip8->opcode & 0x00F0) >> 4;
+    uint8_t height = chip8->opcode & 0x000F;
+    uint8_t pixel = 0;
 
-    for (int row = 0; row < n; ++row) {
-        uint8_t spriteByte = chip8->ram[chip8->i + row];
-        for (int col = 0; col < 8; ++col) {
-            uint8_t spritePixel = spriteByte & (0x80 >> col);
-            uint8_t* screenPixel = &chip8->display[x][y];
-            if (spritePixel) {
-                if (*screenPixel == 0xFF) {
+    for (uint16_t yLine = 0; yLine < height; yLine++) {
+        pixel = chip8->ram[chip8->i + yLine];
+        for (uint16_t xLine = 0; xLine < 8; xLine++) {
+            if ((pixel & (0x80 >> xLine)) != 0) {
+
+                if (chip8->display[(chip8->v[x] + xLine) % 64][(chip8->v[y] + yLine) % 32] == 1) {
                     chip8->v[0xF] = 1;
                 }
-                chip8->display[x][y] ^= 0xFF;
+                chip8->display[(chip8->v[x] + xLine) % 64][(chip8->v[y] + yLine) % 32] ^= 1;
             }
         }
     }
