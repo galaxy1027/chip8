@@ -65,6 +65,7 @@ void loadRom(Chip8* chip8, const char* filename) {
 
 void init(Chip8* chip8) {
     chip8->pc = 0x200;
+    chip8->sp = 0;
     for (int i = 0; i < 80; ++i) {
         chip8->ram[0x50 + i] = font[i];
     }
@@ -92,28 +93,93 @@ void execute(Chip8* chip8) {
                     clearScreen(chip8);
                     break;
                 case 0xE:
+                    returnSubroutine(chip8);
                     break;
             }
             break;
-
         case 0x1:
             jump(chip8);
             break;
-
+        case 0x2:
+            callSubroutine(chip8);
+            break;
+        case 0x3:
+            skipVxByte(chip8);
+            break;
+        case 0x4:
+            skipNotVxByte(chip8);
+            break;
+        case 0x5:
+            skipVxVy(chip8);
+            break;
         case 0x6:
             set(chip8);
             break;
-        
         case 0x7:
             add(chip8);
             break;
-
+        case 0x8:
+            switch(n4) {
+                case 0x0:
+                    setXY(chip8);
+                    break;
+                case 0x1:
+                    OR(chip8);
+                    break;
+                case 0x2:
+                    AND(chip8);
+                    break;
+                case 0x3:
+                    XOR(chip8);
+                    break;
+                case 0x4:
+                    addXY(chip8);
+                    break;
+                case 0x5:
+                    subXY(chip8);
+                    break;
+                case 0x6:
+                    shiftRight(chip8);
+                    break;
+                case 0x7:
+                    subYX(chip8);
+                    break;
+                case 0xE:
+                    shiftLeft(chip8);
+                    break;
+            }
+            break;
+        case 0x9:
+            skipNotVxVy(chip8);
+            break;
         case 0xA:
             setIndex(chip8);
             break;
-
+        case 0xB:
+            jumpOffset(chip8);
+            break;
+        case 0xC:
+            randomNumber(chip8);
+            break;
         case 0xD:
             draw(chip8);
+            break;
+        case 0xF:
+            switch(n4) {
+                case 0x3:
+                    decimalConversion(chip8);
+                    break;
+                case 0x5:
+                    if (n3 == 5) {
+                        storeReg(chip8);
+                    }
+                    else if (n3 == 6) {
+                        loadReg(chip8);
+                    }
+                    break;
+                case 0xE:
+                    addToIndex(chip8);
+            }
             break;
     }
 }
