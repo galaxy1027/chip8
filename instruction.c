@@ -110,52 +110,61 @@ void addXY(Chip8* chip8) {
     uint8_t y = (chip8->opcode & 0x00F0) >> 4;
 
     uint16_t sum = chip8->v[x] + chip8->v[y];
+    chip8->v[x] = sum & 0xFF;
     if (sum > 255) {
         chip8->v[0xF] = 1;
     }
     else {
         chip8->v[0xF] = 0;
     }
-    chip8->v[x] = sum & 0xFF;
 }
 
 // 8XY5
 void subXY(Chip8* chip8) {
     uint8_t x = (chip8->opcode & 0x0F00) >> 8;
     uint8_t y = (chip8->opcode & 0x00F0) >> 4;
-    if (chip8->v[x] > chip8->v[y]) {
+    uint8_t VX = chip8->v[x];
+    uint8_t VY = chip8->v[y];
+    chip8->v[x] -= chip8->v[y];
+
+    if (VX >= VY) {
         chip8->v[0xF] = 1;
     }
     else {
         chip8->v[0xF] = 0;
     }
-    chip8->v[x] -= chip8->v[y];
-}
+    }
 
 // 8XY6
 void shiftRight(Chip8* chip8) {
     uint8_t x = (chip8->opcode & 0x0F00) >> 8;
-    chip8->v[0xF] = chip8->v[x] & 0x01;
+    uint8_t VX = chip8->v[x];
     chip8->v[x] >>= 1;
+    chip8->v[0xF] = VX & 0x01;
 }
 
 // 8XY7
 void subYX(Chip8* chip8) {
     uint8_t x = (chip8->opcode & 0x0F00) >> 8;
     uint8_t y = (chip8->opcode & 0x00F0) >> 4;
+    uint8_t VX = chip8->v[x];
+    uint8_t VY = chip8->v[y];
+    chip8->v[x] = chip8->v[y] - chip8->v[x];
+
     if (chip8->v[y] > chip8->v[x]) {
         chip8->v[0xF] = 1;
     }
     else {
         chip8->v[0xF] = 0;
     }
-    chip8->v[x] = chip8->v[y] - chip8->v[x];
 }
 // 8XYE
 void shiftLeft(Chip8* chip8) {
     uint8_t x = (chip8->opcode & 0x0F00) >> 8;
-    chip8->v[0xF] = (chip8->v[x] & 0x80) >> 7;
+    uint8_t VX = chip8->v[x];
     chip8->v[x] <<= 1;
+    chip8->v[0xF] = (VX & 0x80) >> 7;
+
 }
 
 // 9XY0
