@@ -21,20 +21,21 @@ int main(int argc, char* argv[]) {
 
     InitWindow(64*scale, 32*scale, "Chip-8");
 
-    Chip8 chip8;
-    init(&chip8);
-    loadRom(&chip8, argv[2]);
+    Chip8* chip8 = (Chip8*)malloc(sizeof(Chip8));
+    init(chip8);
+    loadRom(chip8, argv[2]);
     bool quit = false;
 
     while (!quit) {
         if (WindowShouldClose()) {
             quit = true;
         }
-        fetch(&chip8);
-        updateScreen(&chip8, scale);
+        fetch(chip8);
+        updateScreen(chip8, scale);
     }
 
     CloseWindow();
+    free(chip8);
     return 0;
 }
 
