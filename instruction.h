@@ -49,7 +49,21 @@ void randomNumber(Chip8* chip8);
 
 void draw(Chip8* chip8);
 
+void skipIfKey(Chip8* chip8);
+
+void skipIfNotKey(Chip8* chip8);
+
+void vxTimer(Chip8* chip8);
+
+void setDelay(Chip8* chip8);
+
+void setSound(Chip8* chip8);
+
+void getKey(Chip8* chip8);
+
 void addToIndex(Chip8* chip8);
+
+void fontCharacter(Chip8* chip8);
 
 void decimalConversion(Chip8* chip8);
 

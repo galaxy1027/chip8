@@ -30,6 +30,7 @@ int main(int argc, char* argv[]) {
         if (WindowShouldClose()) {
             quit = true;
         }
+        processInput(chip8);
         fetch(chip8);
         updateScreen(chip8, scale);
     }
@@ -81,7 +82,7 @@ void fetch(Chip8* chip8) {
 
 void execute(Chip8* chip8) {
     uint16_t opcode = chip8->opcode;
-    printf("%x\n", opcode);
+    //printf("%x\n", opcode);
     uint8_t n4 = opcode & 0x000F;
     uint8_t n3 = (opcode >> 4) & 0x000F;
     uint8_t n2 = (opcode >> 8) & 0x000F;
@@ -165,6 +166,15 @@ void execute(Chip8* chip8) {
         case 0xD:
             draw(chip8);
             break;
+        case 0xE:
+            switch (n4) {
+                case 0xE:
+                    skipIfKey(chip8);
+                    break;
+                case 0x1:
+                    skipIfNotKey(chip8);
+                    break;
+            }
         case 0xF:
             switch(n4) {
                 case 0x3:
@@ -177,6 +187,21 @@ void execute(Chip8* chip8) {
                     else if (n3 == 6) {
                         loadReg(chip8);
                     }
+                    else if (n3 == 1) {
+                        setDelay(chip8);
+                    }
+                    break;
+                case 0x7:
+                    vxTimer(chip8);
+                    break;
+                case 0x8:
+                    setSound(chip8);
+                    break;
+                case 0x9:
+                    fontCharacter(chip8);
+                    break;
+                case 0xA:
+                    getKey(chip8);
                     break;
                 case 0xE:
                     addToIndex(chip8);
@@ -196,4 +221,18 @@ void updateScreen(Chip8* chip8, int scale) {
         }
     }
     EndDrawing();
+}
+
+void processInput(Chip8* chip8) {
+    chip8->keyPressed = 0;
+    for (int i = 0; i < 16; ++i) {
+        if (IsKeyPressed(keys[i])) {
+            chip8->keypad[i] = 1;
+            chip8->keyPressed = keys[i];
+            printf("%d", chip8->keyPressed);
+        }
+        else if (IsKeyReleased(keys[i])) {
+            chip8->keypad[i] = 0;
+        }
+    }
 }

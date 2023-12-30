@@ -2,6 +2,7 @@
 #define CHIP8_H
 
 #include <stdint.h>
+#include "raylib.h"
 
 typedef struct Chip8{
     uint8_t v[16];
@@ -15,6 +16,7 @@ typedef struct Chip8{
     uint8_t display[64][32];
     uint8_t keypad[16];
     uint16_t opcode;
+    uint8_t keyPressed;
 } Chip8;
 
 const static uint8_t font[80] = {
@@ -37,6 +39,13 @@ const static uint8_t font[80] = {
 
 };
 
+const static int keys[16] = {
+    KEY_ONE, KEY_TWO, KEY_THREE, KEY_FOUR,
+    KEY_Q, KEY_W, KEY_E, KEY_R,
+    KEY_A, KEY_S, KEY_D, KEY_F,
+    KEY_Z, KEY_X, KEY_C, KEY_V
+};
+
 void loadRom(Chip8* chip8, const char* filename);
 
 void init(Chip8* chip8);
@@ -46,5 +55,7 @@ void fetch(Chip8* chip8);
 void execute(Chip8* chip8);
 
 void updateScreen(Chip8* chip8, int scale);
+
+void processInput(Chip8* chip8);
 
 #endif
