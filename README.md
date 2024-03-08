@@ -12,6 +12,7 @@ Raylib was used for handling graphics and controls.
 
 
 ## Building
+(Only works for MacOS / Linux)
 1. Install raylib: https://github.com/raysan5/raylib
 2. Clone into this repository and cd into it `$ cd chip8`
 3. Run `$ make`
