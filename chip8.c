@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    const float fps = 60.0;
+    const float fps = 500.0;
 
     SetTargetFPS(fps);
     
