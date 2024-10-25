@@ -8,8 +8,8 @@ for explanations on how the chip8 interpreter works.
 https://austinmorlan.com/posts/chip8_emulator/
 for implementations of some opcodes.
 
-Raylib was used for handling graphics and controls.
-
+Raylib was used for handling graphics and controls, as well as the build template.
+https://github.com/raysan5/raylib
 
 ## Building
 ALL Operating Systems require a C compiler
