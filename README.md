@@ -12,10 +12,16 @@ Raylib was used for handling graphics and controls.
 
 
 ## Building
-(Only works for MacOS / Linux)
-1. Install raylib: https://github.com/raysan5/raylib
-2. Clone into this repository and cd into it `$ cd chip8`
-3. Run `$ make`
+ALL Operating Systems require a C compiler
+
+**GCC is recommended**
+
+Linux will also require packages for:
+
+ALSA for audio, Mesa for OpenGL accelerated graphics and X11 for windowing system.
+
+### Build Steps
+The raylib quickstart template is included. Reference https://github.com/raylib-extras/raylib-quickstart on how to run the build script for your specific OS.
 
 ## Running
 There are some test ROMS included. You can either run those or your own chip8 roms.
