@@ -12,7 +12,7 @@ Raylib was used for handling graphics and controls, as well as the build templat
 https://github.com/raysan5/raylib
 
 ## Building
-ALL Operating Systems require a C compiler
+ALL Operating Systems require a C compiler and ``make``
 
 **GCC is recommended**
 
