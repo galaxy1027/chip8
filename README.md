@@ -25,7 +25,7 @@ ALSA for audio, Mesa for OpenGL accelerated graphics and X11 for windowing syste
 ### Build Steps
 The raylib quickstart template is included. Reference https://github.com/raylib-extras/raylib-quickstart for details on how to run the build script for your specific OS.
 
-The following steps do NOT apply to Windows Visual Studio, only MINGW64
+The following steps do NOT apply to Windows
 1. Go into ``build`` directory ``$ cd build``
 2. Run premake script:
    Windows: ``$ .\premake5.exe gmake2``
