@@ -12,17 +12,20 @@ Raylib was used for handling graphics and controls, as well as the build templat
 https://github.com/raysan5/raylib
 
 ## Building
-ALL Operating Systems require a C compiler and ``make``
+ALL Operating Systems require a C compiler.
 
 **GCC is recommended**
 
-Linux will also require packages for:
+Windows will either require MinGW64 or Visual Studio to be installed.
+
+Linux will require packages for:
 
 ALSA for audio, Mesa for OpenGL accelerated graphics and X11 for windowing system.
 
 ### Build Steps
 The raylib quickstart template is included. Reference https://github.com/raylib-extras/raylib-quickstart for details on how to run the build script for your specific OS.
 
+The following steps do NOT apply to Windows Visual Studio, only MINGW64
 1. Go into ``build`` directory ``$ cd build``
 2. Run premake script:
    Windows: ``$ .\premake5.exe gmake2``
@@ -30,6 +33,11 @@ The raylib quickstart template is included. Reference https://github.com/raylib-
    Linux: ``$ ./premake5 gmake2``
 4. Go back into root and run ``$ make``
 5. Executable will be in ``bin/Debug/``
+
+### Visual Studio
+1. Run ``build-MinGW-W64.bat``
+2. Run the generated ``.sln`` file
+3. Develop the game in Visual Studio
 
 ## Running
 There are some test ROMS included. You can either run those or your own chip8 roms.
