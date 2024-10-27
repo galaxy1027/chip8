@@ -21,7 +21,15 @@ Linux will also require packages for:
 ALSA for audio, Mesa for OpenGL accelerated graphics and X11 for windowing system.
 
 ### Build Steps
-The raylib quickstart template is included. Reference https://github.com/raylib-extras/raylib-quickstart on how to run the build script for your specific OS.
+The raylib quickstart template is included. Reference https://github.com/raylib-extras/raylib-quickstart for details on how to run the build script for your specific OS.
+
+1. Go into ``build`` directory ``$ cd build``
+2. Run premake script:
+   Windows: ``$ .\premake5.exe gmake2``
+   MacOS: ``$ ./premake5.osx gmake2``
+   Linux: ``$ ./premake5 gmake2``
+4. Go back into root and run ``$ make``
+5. Executable will be in ``bin/Debug/``
 
 ## Running
 There are some test ROMS included. You can either run those or your own chip8 roms.
