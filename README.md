@@ -25,7 +25,7 @@ ALSA for audio, Mesa for OpenGL accelerated graphics and X11 for windowing syste
 ### Build Steps
 The raylib quickstart template is included. Reference https://github.com/raylib-extras/raylib-quickstart for details on how to run the build script for your specific OS.
 
-The following steps do NOT apply to Windows
+#### Linux / MacOS / Windows (MinGW64)
 1. Go into ``build`` directory ``$ cd build``
 2. Run premake script:
    Windows: ``$ .\premake5.exe gmake2``
@@ -34,7 +34,7 @@ The following steps do NOT apply to Windows
 4. Go back into root and run ``$ make``
 5. Executable will be in ``bin/Debug/``
 
-### Visual Studio
+#### Windows (Visual Studio)
 1. Run ``build-MinGW-W64.bat``
 2. Run the generated ``.sln`` file
 3. Develop the game in Visual Studio
