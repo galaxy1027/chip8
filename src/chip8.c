@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 }
 
 void loadRom(Chip8 *chip8, const char *filename) {
-    FILE *ROM = fopen(filename, "r");
+    FILE *ROM = fopen(filename, "rb");
 
     if (ROM == NULL) {
         fprintf(stderr, "ERROR: Invalid ROM path.\n");
@@ -82,6 +82,7 @@ void loadRom(Chip8 *chip8, const char *filename) {
     for (int i = 0; i < fileSize; ++i) {
         chip8->ram[0x200 + i] = buf[i];
     }
+    fclose(ROM);
 }
 
 void init(Chip8 *chip8) {
@@ -194,6 +195,7 @@ void execute(Chip8 *chip8) {
             skipIfNotKey(chip8);
             break;
         }
+        break;
     case 0xF:
         switch (n4) {
         case 0x3:

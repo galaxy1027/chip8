@@ -136,7 +136,7 @@ void subXY(Chip8* chip8) {
     else {
         chip8->v[0xF] = 0;
     }
-    }
+}
 
 // 8XY6
 void shiftRight(Chip8* chip8) {
@@ -246,7 +246,7 @@ void vxTimer(Chip8* chip8) {
 
 // FX15
 void setDelay(Chip8* chip8) {
-    uint8_t x = (chip8->opcode * 0x0F00) >> 8;
+    uint8_t x = (chip8->opcode & 0x0F00) >> 8;
     chip8->delayTimer = chip8->v[x];
 }
 
